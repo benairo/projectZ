@@ -17,15 +17,21 @@ public class PlayerAiming : MonoBehaviour
 
     private Camera _camera;
 
+    private InputAction _aimAction;
+
     private InputAction _shootAction;
+
+    private RaycastWeapon _weapon;
     // Start is called before the first frame update
     void Start()
     {
         _playerInput = GetComponent<PlayerInput>();
+        _aimAction = _playerInput.actions["Aim"];
         _shootAction = _playerInput.actions["Shoot"];
         _camera = Camera.main;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        _weapon = GetComponentInChildren<RaycastWeapon>();
     }
 
     // Update is called once per frame
@@ -35,9 +41,9 @@ public class PlayerAiming : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, yawCamera, 0), turnSpeed * Time.fixedDeltaTime);
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        if (_shootAction.IsPressed())
+        if (_aimAction.IsPressed())
         {
             aimLayer.weight += Time.deltaTime / aimDuration;
         }
@@ -45,5 +51,15 @@ public class PlayerAiming : MonoBehaviour
         {
             aimLayer.weight -= Time.deltaTime / aimDuration;
         }
+
+        if (_shootAction.IsPressed())
+        {
+            _weapon.StartFiring();
+        }
+        else
+        {
+            _weapon.StopFiring();
+        }
+
     }
 }

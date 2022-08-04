@@ -38,9 +38,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Aim"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""09c17b3b-7101-4668-9425-05afb0dd500c"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -50,6 +50,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""20c4b4f9-2e75-4b86-b86d-9d411024a414"",
                     ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""75c02e6b-437d-439d-b262-368bf73bf6d9"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -124,28 +133,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""6646f452-9f32-44d1-807d-c932d7ddcd3e"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Aim"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a1420af5-7b7e-470b-9065-9906ec948a4b"",
-                    ""path"": ""<Mouse>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KBM"",
-                    ""action"": ""Aim"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""3744dffd-e361-4ad9-b42f-98f5fb41a03d"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
@@ -163,6 +150,50 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""08d652bf-e97c-4ba7-8fd0-72de659a8773"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f2fb017f-5ce5-4911-8f2f-5d95fbe3afd9"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1bd35bc7-88f1-4e13-86ea-6180c538b921"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5fc46927-a892-4049-9b31-7c3f836231c9"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -204,6 +235,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Controls_Movement = m_Controls.FindAction("Movement", throwIfNotFound: true);
         m_Controls_Aim = m_Controls.FindAction("Aim", throwIfNotFound: true);
         m_Controls_Shoot = m_Controls.FindAction("Shoot", throwIfNotFound: true);
+        m_Controls_Look = m_Controls.FindAction("Look", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -266,6 +298,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Controls_Movement;
     private readonly InputAction m_Controls_Aim;
     private readonly InputAction m_Controls_Shoot;
+    private readonly InputAction m_Controls_Look;
     public struct ControlsActions
     {
         private @PlayerControls m_Wrapper;
@@ -273,6 +306,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Controls_Movement;
         public InputAction @Aim => m_Wrapper.m_Controls_Aim;
         public InputAction @Shoot => m_Wrapper.m_Controls_Shoot;
+        public InputAction @Look => m_Wrapper.m_Controls_Look;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -291,6 +325,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Shoot.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnShoot;
+                @Look.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnLook;
+                @Look.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnLook;
+                @Look.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnLook;
             }
             m_Wrapper.m_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -304,6 +341,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @Look.started += instance.OnLook;
+                @Look.performed += instance.OnLook;
+                @Look.canceled += instance.OnLook;
             }
         }
     }
@@ -331,5 +371,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
     }
 }
