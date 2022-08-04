@@ -14,6 +14,8 @@ public class RaycastWeapon : MonoBehaviour
 
     public Transform raycastDestination;
 
+    public TrailRenderer bulletTrail;
+
     private Ray _ray;
 
     private RaycastHit _hitInfo;
@@ -28,11 +30,17 @@ public class RaycastWeapon : MonoBehaviour
 
         _ray.origin = raycastOrigin.position;
         _ray.direction = raycastDestination.position - raycastOrigin.position;
+
+        var tracer = Instantiate(bulletTrail, _ray.origin, Quaternion.identity);
+        tracer.AddPosition(_ray.origin);
+        
         if (Physics.Raycast(_ray, out _hitInfo))
         {
             hitEffect.transform.position = _hitInfo.point;
             hitEffect.transform.forward = _hitInfo.normal;
             hitEffect.Emit(1);
+
+            tracer.transform.position = _hitInfo.point;
         }
     }
 
