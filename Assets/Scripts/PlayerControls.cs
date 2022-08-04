@@ -44,6 +44,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""20c4b4f9-2e75-4b86-b86d-9d411024a414"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -134,6 +143,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3744dffd-e361-4ad9-b42f-98f5fb41a03d"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e5cedb1-d013-473e-8bb4-50f91e81153a"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -172,6 +203,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Controls = asset.FindActionMap("Controls", throwIfNotFound: true);
         m_Controls_Movement = m_Controls.FindAction("Movement", throwIfNotFound: true);
         m_Controls_Aim = m_Controls.FindAction("Aim", throwIfNotFound: true);
+        m_Controls_Shoot = m_Controls.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -233,12 +265,14 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private IControlsActions m_ControlsActionsCallbackInterface;
     private readonly InputAction m_Controls_Movement;
     private readonly InputAction m_Controls_Aim;
+    private readonly InputAction m_Controls_Shoot;
     public struct ControlsActions
     {
         private @PlayerControls m_Wrapper;
         public ControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Controls_Movement;
         public InputAction @Aim => m_Wrapper.m_Controls_Aim;
+        public InputAction @Shoot => m_Wrapper.m_Controls_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -254,6 +288,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Aim.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnAim;
                 @Aim.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnAim;
                 @Aim.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnAim;
+                @Shoot.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnShoot;
             }
             m_Wrapper.m_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -264,6 +301,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Aim.started += instance.OnAim;
                 @Aim.performed += instance.OnAim;
                 @Aim.canceled += instance.OnAim;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
             }
         }
     }
@@ -290,5 +330,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }
