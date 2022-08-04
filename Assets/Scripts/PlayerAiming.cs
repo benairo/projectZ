@@ -56,7 +56,13 @@ public class PlayerAiming : MonoBehaviour
         {
             _weapon.StartFiring();
         }
-        else
+
+        if (_weapon.isFiring)
+        {
+            _weapon.UpdateFiring(Time.deltaTime);
+        }
+        _weapon.UpdateBullet(Time.deltaTime);
+        if (!_shootAction.IsPressed())
         {
             _weapon.StopFiring();
         }
