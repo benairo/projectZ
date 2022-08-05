@@ -21,12 +21,8 @@ public class ActiveWeapon : MonoBehaviour
     public Animator rigController;
 
     private RaycastWeapon _weapon;
-    
-    private PlayerInput _playerInput;
 
-    private InputAction _shootAction;
-
-    private InputAction _holsterAction;
+    private bool _shooting;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,9 +31,17 @@ public class ActiveWeapon : MonoBehaviour
         {
             Equip(existingWeapon);
         }
-        _playerInput = GetComponent<PlayerInput>();
-        _shootAction = _playerInput.actions["Shoot"];
-        _holsterAction = _playerInput.actions["Holster"];
+    }
+    
+    public void GetShootInput(InputAction.CallbackContext context)
+    {
+        _shooting = context.action.triggered;
+    }
+
+    public void GetHolsterInput(InputAction.CallbackContext context)
+    {
+        bool isHolstered = rigController.GetBool("holster_weapon");
+        rigController.SetBool("holster_weapon", !isHolstered);
     }
 
     // Update is called once per frame
@@ -48,7 +52,7 @@ public class ActiveWeapon : MonoBehaviour
             // FIND A FIX FOR THIS!!!!!!!!!!!!
             handIK.weight = 1.0f;
             
-            if (_shootAction.IsPressed())
+            if (_shooting)
             {
                 _weapon.StartFiring();
             }
@@ -58,15 +62,9 @@ public class ActiveWeapon : MonoBehaviour
                 _weapon.UpdateFiring(Time.deltaTime);
             }
             _weapon.UpdateBullet(Time.deltaTime);
-            if (!_shootAction.IsPressed())
+            if (!_shooting)
             {
                 _weapon.StopFiring();
-            }
-
-            if (_holsterAction.triggered)
-            {
-                bool isHolstered = rigController.GetBool("holster_weapon");
-                rigController.SetBool("holster_weapon", !isHolstered);
             }
         }
     }
