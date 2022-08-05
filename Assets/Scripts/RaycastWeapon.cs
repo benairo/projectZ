@@ -12,6 +12,7 @@ public class RaycastWeapon : MonoBehaviour
         public Vector3 initialPosition;
         public Vector3 initialVelocity;
         public TrailRenderer tracer;
+        public int bounce;
     }
 
     public ActiveWeapon.WeaponSlot WeaponSlot;
@@ -23,6 +24,8 @@ public class RaycastWeapon : MonoBehaviour
     public float bulletSpeed = 1000.0f;
 
     public float bulletDrop = 0.0f;
+
+    public int maxBounces = 0;
 
     public ParticleSystem[] muzzleFlash;
 
@@ -68,6 +71,7 @@ public class RaycastWeapon : MonoBehaviour
         bullet.time = 0.0f;
         bullet.tracer = Instantiate(bulletTrail, position, Quaternion.identity);
         bullet.tracer.AddPosition(position);
+        bullet.bounce = maxBounces;
         return bullet;
     }
 
@@ -148,14 +152,26 @@ public class RaycastWeapon : MonoBehaviour
             hitEffect.transform.position = _hitInfo.point;
             hitEffect.transform.forward = _hitInfo.normal;
             hitEffect.Emit(1);
-        
-            bullet.tracer.transform.position = _hitInfo.point;
+
             bullet.time = maxLifetime;
+            end = _hitInfo.point;
+
+            if (bullet.bounce > 0)
+            {
+                bullet.time = 0;
+                bullet.initialPosition = _hitInfo.point;
+                bullet.initialVelocity = Vector3.Reflect(bullet.initialVelocity, _hitInfo.normal);
+                bullet.bounce--;
+            }
+
+            var rb2d = _hitInfo.collider.GetComponent<Rigidbody>();
+            if (rb2d)
+            {
+                rb2d.AddForceAtPosition(_ray.direction * 20, _hitInfo.point, ForceMode.Impulse);
+            }
         }
-        else
-        {
-            bullet.tracer.transform.position = end;
-        }
+
+        bullet.tracer.transform.position = end;
     }
 
     private void FireBullet()
