@@ -4820,7 +4820,10 @@ MonoBehaviour:
   bulletTrail: {fileID: 722532246891214693, guid: f02425e5697074c4298221c1433da8bc,
     type: 3}
   weaponName: pistol
+  ammoCount: 7
+  clipSize: 7
   recoil: {fileID: 0}
+  magazine: {fileID: 0}
 --- !u!114 &8487961819190607770
 MonoBehaviour:
   m_ObjectHideFlags: 0

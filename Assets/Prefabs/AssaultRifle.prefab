@@ -9522,7 +9522,10 @@ MonoBehaviour:
   bulletTrail: {fileID: 722532246891214693, guid: f02425e5697074c4298221c1433da8bc,
     type: 3}
   weaponName: rifle
+  ammoCount: 30
+  clipSize: 30
   recoil: {fileID: 0}
+  magazine: {fileID: 6130111890391958633}
 --- !u!114 &-5040971162697371223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9537,6 +9540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 0}
   cameraShake: {fileID: 0}
+  rigController: {fileID: 0}
   recoilPattern:
   - {x: 10, y: 10}
   - {x: 8, y: 10}

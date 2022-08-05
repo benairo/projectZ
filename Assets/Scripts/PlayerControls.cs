@@ -89,6 +89,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""b1d3e69e-3e67-4a2a-b46f-a78ce9975576"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -260,7 +269,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""29e5786e-6cb3-48ff-921f-2fbdb6190926"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -287,6 +296,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""SecondaryWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""adce9d83-8d79-418c-8c18-48c76130817f"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cbfe5432-d693-4ba4-a6c3-e2fe06936c7d"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -332,6 +363,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Controls_Holster = m_Controls.FindAction("Holster", throwIfNotFound: true);
         m_Controls_PrimaryWeapon = m_Controls.FindAction("PrimaryWeapon", throwIfNotFound: true);
         m_Controls_SecondaryWeapon = m_Controls.FindAction("SecondaryWeapon", throwIfNotFound: true);
+        m_Controls_Reload = m_Controls.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -398,6 +430,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Controls_Holster;
     private readonly InputAction m_Controls_PrimaryWeapon;
     private readonly InputAction m_Controls_SecondaryWeapon;
+    private readonly InputAction m_Controls_Reload;
     public struct ControlsActions
     {
         private @PlayerControls m_Wrapper;
@@ -409,6 +442,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Holster => m_Wrapper.m_Controls_Holster;
         public InputAction @PrimaryWeapon => m_Wrapper.m_Controls_PrimaryWeapon;
         public InputAction @SecondaryWeapon => m_Wrapper.m_Controls_SecondaryWeapon;
+        public InputAction @Reload => m_Wrapper.m_Controls_Reload;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -439,6 +473,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @SecondaryWeapon.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnSecondaryWeapon;
                 @SecondaryWeapon.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnSecondaryWeapon;
                 @SecondaryWeapon.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnSecondaryWeapon;
+                @Reload.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnReload;
             }
             m_Wrapper.m_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -464,6 +501,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @SecondaryWeapon.started += instance.OnSecondaryWeapon;
                 @SecondaryWeapon.performed += instance.OnSecondaryWeapon;
                 @SecondaryWeapon.canceled += instance.OnSecondaryWeapon;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
             }
         }
     }
@@ -495,5 +535,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnHolster(InputAction.CallbackContext context);
         void OnPrimaryWeapon(InputAction.CallbackContext context);
         void OnSecondaryWeapon(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }
