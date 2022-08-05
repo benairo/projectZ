@@ -63,13 +63,16 @@ public class RaycastWeapon : MonoBehaviour
     public void StartFiring()
     {
         isFiring = true;
-        _accumulatedTime = 0.0f;
-        FireBullet();
+        if (_accumulatedTime >= 0)
+        {
+            _accumulatedTime = 0.0f;
+            FireBullet();
+        }
+
     }
 
     public void UpdateFiring(float deltaTime)
     {
-        _accumulatedTime += deltaTime;
         float fireInterval = 1.0f / fireRate;
         while (_accumulatedTime >= 0.0f)
         {
@@ -80,6 +83,7 @@ public class RaycastWeapon : MonoBehaviour
 
     public void UpdateBullet(float deltaTime)
     {
+        _accumulatedTime += deltaTime;
         SimulateBullets(deltaTime);
         DestroyBullets();
     }

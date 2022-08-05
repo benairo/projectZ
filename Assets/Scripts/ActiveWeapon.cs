@@ -22,7 +22,9 @@ public class ActiveWeapon : MonoBehaviour
 
     private RaycastWeapon _weapon;
 
-    private bool _shooting;
+    private bool _startShooting;
+
+    private bool _stopShooting;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +37,9 @@ public class ActiveWeapon : MonoBehaviour
     
     public void GetShootInput(InputAction.CallbackContext context)
     {
-        _shooting = context.action.triggered;
+        _startShooting = context.performed;
+        _stopShooting = context.canceled;
+
     }
 
     public void GetHolsterInput(InputAction.CallbackContext context)
@@ -49,10 +53,7 @@ public class ActiveWeapon : MonoBehaviour
     {
         if (_weapon)
         {
-            // FIND A FIX FOR THIS!!!!!!!!!!!!
-            handIK.weight = 1.0f;
-            
-            if (_shooting)
+            if (_startShooting)
             {
                 _weapon.StartFiring();
             }
@@ -62,7 +63,7 @@ public class ActiveWeapon : MonoBehaviour
                 _weapon.UpdateFiring(Time.deltaTime);
             }
             _weapon.UpdateBullet(Time.deltaTime);
-            if (!_shooting)
+            if (_stopShooting)
             {
                 _weapon.StopFiring();
             }
