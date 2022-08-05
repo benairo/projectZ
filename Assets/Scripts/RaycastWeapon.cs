@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class RaycastWeapon : MonoBehaviour
 {
@@ -77,11 +79,34 @@ public class RaycastWeapon : MonoBehaviour
             _accumulatedTime = 0.0f;
             FireBullet();
         }
+    }
 
+    public void UpdateWeapon(float deltaTime)
+    {
+        var mouse = Mouse.current;
+
+        if (mouse.leftButton.wasPressedThisFrame)
+        {
+            print(mouse.leftButton.wasPressedThisFrame);
+            StartFiring();
+        }
+
+        if (isFiring)
+        {
+            UpdateFiring(deltaTime);
+        }
+
+        UpdateBullet(deltaTime);
+        if (mouse.leftButton.wasReleasedThisFrame)
+        {
+            print(mouse.leftButton.wasReleasedThisFrame);
+            StopFiring();
+        }
     }
 
     public void UpdateFiring(float deltaTime)
     {
+        _accumulatedTime += deltaTime;
         float fireInterval = 1.0f / fireRate;
         while (_accumulatedTime >= 0.0f)
         {
@@ -92,7 +117,6 @@ public class RaycastWeapon : MonoBehaviour
 
     public void UpdateBullet(float deltaTime)
     {
-        _accumulatedTime += deltaTime;
         SimulateBullets(deltaTime);
         DestroyBullets();
     }

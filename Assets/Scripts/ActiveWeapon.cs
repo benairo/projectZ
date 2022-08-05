@@ -19,10 +19,6 @@ public class ActiveWeapon : MonoBehaviour
 
     public Transform[] weaponSlots;
 
-    public Transform weaponLeftGrip;
-
-    public Transform weaponRightGrip;
-    
     public Animator rigController;
 
     // public Cinemachine.CinemachineFreeLook playerCamera;
@@ -32,10 +28,7 @@ public class ActiveWeapon : MonoBehaviour
     private int _activeWeaponIndex;
     
     private bool _isHolstered = false;
-
-    private bool _startShooting;
-
-    private bool _stopShooting;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -52,14 +45,7 @@ public class ActiveWeapon : MonoBehaviour
         {
             return null;
         }
-
         return _equippedWeapons[index];
-    }
-    public void GetShootInput(InputAction.CallbackContext context)
-    {
-        _startShooting = context.performed;
-        _stopShooting = context.canceled;
-
     }
 
     public void GetHolsterInput(InputAction.CallbackContext context)
@@ -80,23 +66,9 @@ public class ActiveWeapon : MonoBehaviour
     void Update()
     {
         var weapon = GetWeapon(_activeWeaponIndex);
-        
         if (weapon && !_isHolstered)
         {
-            if (_startShooting)
-            {
-                weapon.StartFiring();
-            }
-
-            if (weapon.isFiring)
-            {
-                weapon.UpdateFiring(Time.deltaTime);
-            }
-            weapon.UpdateBullet(Time.deltaTime);
-            if (_stopShooting)
-            {
-                weapon.StopFiring();
-            }
+            weapon.UpdateWeapon(Time.deltaTime);
         }
     }
 
@@ -180,6 +152,7 @@ public class ActiveWeapon : MonoBehaviour
             while (rigController.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
 
             _isHolstered = false;
+            weapon.StopFiring();
         }
     }
 }
