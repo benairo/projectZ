@@ -62,6 +62,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Holster"",
+                    ""type"": ""Button"",
+                    ""id"": ""197ffb86-900b-46c3-8681-dd94be943b7e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -196,6 +205,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""14e8c2ab-b51e-4b8e-8508-c70ff588984f"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Holster"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c77813b-ab13-447d-9fe6-6ca7d24ae4b5"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Holster"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -236,6 +267,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Controls_Aim = m_Controls.FindAction("Aim", throwIfNotFound: true);
         m_Controls_Shoot = m_Controls.FindAction("Shoot", throwIfNotFound: true);
         m_Controls_Look = m_Controls.FindAction("Look", throwIfNotFound: true);
+        m_Controls_Holster = m_Controls.FindAction("Holster", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -299,6 +331,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Controls_Aim;
     private readonly InputAction m_Controls_Shoot;
     private readonly InputAction m_Controls_Look;
+    private readonly InputAction m_Controls_Holster;
     public struct ControlsActions
     {
         private @PlayerControls m_Wrapper;
@@ -307,6 +340,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Aim => m_Wrapper.m_Controls_Aim;
         public InputAction @Shoot => m_Wrapper.m_Controls_Shoot;
         public InputAction @Look => m_Wrapper.m_Controls_Look;
+        public InputAction @Holster => m_Wrapper.m_Controls_Holster;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -328,6 +362,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Look.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnLook;
+                @Holster.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnHolster;
+                @Holster.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnHolster;
+                @Holster.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnHolster;
             }
             m_Wrapper.m_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -344,6 +381,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
+                @Holster.started += instance.OnHolster;
+                @Holster.performed += instance.OnHolster;
+                @Holster.canceled += instance.OnHolster;
             }
         }
     }
@@ -372,5 +412,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnAim(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnHolster(InputAction.CallbackContext context);
     }
 }

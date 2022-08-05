@@ -30,6 +30,8 @@ public class RaycastWeapon : MonoBehaviour
 
     public TrailRenderer bulletTrail;
 
+    public string weaponName;
+
     private Ray _ray;
 
     private RaycastHit _hitInfo;

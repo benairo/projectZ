@@ -10,28 +10,22 @@ public class PlayerAiming : MonoBehaviour
     public float turnSpeed = 15;
 
     public float aimDuration = 0.3f;
-    
-    public Rig aimLayer;
 
     private PlayerInput _playerInput;
 
     private Camera _camera;
 
     private InputAction _aimAction;
-
-    private InputAction _shootAction;
-
-    private RaycastWeapon _weapon;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
         _playerInput = GetComponent<PlayerInput>();
         _aimAction = _playerInput.actions["Aim"];
-        _shootAction = _playerInput.actions["Shoot"];
         _camera = Camera.main;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        _weapon = GetComponentInChildren<RaycastWeapon>();
     }
 
     // Update is called once per frame
@@ -43,29 +37,14 @@ public class PlayerAiming : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (_aimAction.IsPressed())
-        {
-            aimLayer.weight += Time.deltaTime / aimDuration;
-        }
-        else
-        {
-            aimLayer.weight -= Time.deltaTime / aimDuration;
-        }
-
-        if (_shootAction.IsPressed())
-        {
-            _weapon.StartFiring();
-        }
-
-        if (_weapon.isFiring)
-        {
-            _weapon.UpdateFiring(Time.deltaTime);
-        }
-        _weapon.UpdateBullet(Time.deltaTime);
-        if (!_shootAction.IsPressed())
-        {
-            _weapon.StopFiring();
-        }
+        // if (_aimAction.IsPressed())
+        // {
+        //     aimLayer.weight += Time.deltaTime / aimDuration;
+        // }
+        // else
+        // {
+        //     aimLayer.weight -= Time.deltaTime / aimDuration;
+        // }
 
     }
 }
