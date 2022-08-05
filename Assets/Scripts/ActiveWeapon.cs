@@ -21,7 +21,7 @@ public class ActiveWeapon : MonoBehaviour
 
     public Animator rigController;
 
-    // public Cinemachine.CinemachineFreeLook playerCamera;
+    public Cinemachine.CinemachineFreeLook playerCamera;
 
     private RaycastWeapon[] _equippedWeapons = new RaycastWeapon[2];
     
@@ -82,7 +82,8 @@ public class ActiveWeapon : MonoBehaviour
         }
         weapon = newWeapon;
         weapon.raycastDestination = crosshairTarget;
-        // _weapon.recoil.playerCamera = playerCamera;
+        weapon.recoil.playerCamera = playerCamera;
+        weapon.recoil.rigController = rigController;
         weapon.transform.SetParent(weaponSlots[weaponSlotIndex], false);
         _equippedWeapons[weaponSlotIndex] = weapon;
         _activeWeaponIndex = weaponSlotIndex;

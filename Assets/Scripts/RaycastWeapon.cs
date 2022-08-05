@@ -78,6 +78,7 @@ public class RaycastWeapon : MonoBehaviour
     public void StartFiring()
     {
         isFiring = true;
+        recoil.Reset();
         if (_accumulatedTime >= 0)
         {
             _accumulatedTime = 0.0f;
@@ -91,7 +92,6 @@ public class RaycastWeapon : MonoBehaviour
 
         if (mouse.leftButton.wasPressedThisFrame)
         {
-            print(mouse.leftButton.wasPressedThisFrame);
             StartFiring();
         }
 
@@ -103,7 +103,6 @@ public class RaycastWeapon : MonoBehaviour
         UpdateBullet(deltaTime);
         if (mouse.leftButton.wasReleasedThisFrame)
         {
-            print(mouse.leftButton.wasReleasedThisFrame);
             StopFiring();
         }
     }
@@ -184,6 +183,8 @@ public class RaycastWeapon : MonoBehaviour
         Vector3 velocity = (raycastDestination.position - raycastOrigin.position).normalized * bulletSpeed;
         var bullet = CreateBullet(raycastOrigin.position, velocity);
         bullets.Add(bullet);
+        
+        recoil.GenerateRecoil(weaponName);
     }
 
     public void StopFiring()
