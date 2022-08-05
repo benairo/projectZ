@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1090119748196886186}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.57436115, y: 0.539, z: 1.1394972}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1095799844223080840}
@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01b5bd31e2479a34d90fdebfd7dbd245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WeaponSlot: 1
   isFiring: 0
   fireRate: 25
   bulletSpeed: 300
@@ -109,6 +110,7 @@ MonoBehaviour:
   bulletTrail: {fileID: 722532246891214693, guid: f02425e5697074c4298221c1433da8bc,
     type: 3}
   weaponName: pistol
+  recoil: {fileID: 0}
 --- !u!1 &1090336581627227342
 GameObject:
   m_ObjectHideFlags: 0

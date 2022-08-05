@@ -9467,6 +9467,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4347451729086399995}
   - component: {fileID: 4347451729086399994}
+  - component: {fileID: -5040971162697371223}
   m_Layer: 0
   m_Name: AssaultRifle
   m_TagString: Untagged
@@ -9482,7 +9483,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4347451729086399992}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.118, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9105069979206712460}
@@ -9505,6 +9506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01b5bd31e2479a34d90fdebfd7dbd245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WeaponSlot: 0
   isFiring: 0
   fireRate: 5
   bulletSpeed: 500
@@ -9518,6 +9520,20 @@ MonoBehaviour:
   bulletTrail: {fileID: 722532246891214693, guid: f02425e5697074c4298221c1433da8bc,
     type: 3}
   weaponName: rifle
+  recoil: {fileID: 0}
+--- !u!114 &-5040971162697371223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4347451729086399992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19f366d6cb4df8949aff276c7bfe71f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 0}
 --- !u!1 &6130111890391958633
 GameObject:
   m_ObjectHideFlags: 0
@@ -9956,7 +9972,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9102014009748935610}
   m_LocalRotation: {x: -0.7071068, y: -0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.323492, y: -0.118, z: 0.043064877}
+  m_LocalPosition: {x: -2.9931896, y: -0.118, z: 0.1723888}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4347451729086399995}

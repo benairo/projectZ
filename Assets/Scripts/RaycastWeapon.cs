@@ -11,6 +11,8 @@ public class RaycastWeapon : MonoBehaviour
         public Vector3 initialVelocity;
         public TrailRenderer tracer;
     }
+
+    public ActiveWeapon.WeaponSlot WeaponSlot;
     
     public bool isFiring = false;
 
@@ -32,6 +34,8 @@ public class RaycastWeapon : MonoBehaviour
 
     public string weaponName;
 
+    public WeaponRecoil recoil;
+
     private Ray _ray;
 
     private RaycastHit _hitInfo;
@@ -41,6 +45,11 @@ public class RaycastWeapon : MonoBehaviour
     private List<Bullet> bullets = new List<Bullet>();
 
     private float maxLifetime = 3.0f;
+
+    private void Awake()
+    {
+        recoil = GetComponent<WeaponRecoil>();
+    }
 
     Vector3 GetPosition(Bullet bullet)
     {

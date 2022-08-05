@@ -71,6 +71,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PrimaryWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""4d605c7f-8eaf-4d18-a228-7f6f5b1a07c4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SecondaryWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""17ed6c44-a05c-45f7-9ce6-749907f56ce3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -227,6 +245,50 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Holster"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5dabd75b-a15f-4212-a1f2-6dc7cd0ff57d"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""PrimaryWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""29e5786e-6cb3-48ff-921f-2fbdb6190926"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""PrimaryWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0081d081-3d76-43f8-982f-99a4ab6d030a"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""SecondaryWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0e9cf93f-8f08-46c8-b36f-4f847a0f4fb2"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SecondaryWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -268,6 +330,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Controls_Shoot = m_Controls.FindAction("Shoot", throwIfNotFound: true);
         m_Controls_Look = m_Controls.FindAction("Look", throwIfNotFound: true);
         m_Controls_Holster = m_Controls.FindAction("Holster", throwIfNotFound: true);
+        m_Controls_PrimaryWeapon = m_Controls.FindAction("PrimaryWeapon", throwIfNotFound: true);
+        m_Controls_SecondaryWeapon = m_Controls.FindAction("SecondaryWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -332,6 +396,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Controls_Shoot;
     private readonly InputAction m_Controls_Look;
     private readonly InputAction m_Controls_Holster;
+    private readonly InputAction m_Controls_PrimaryWeapon;
+    private readonly InputAction m_Controls_SecondaryWeapon;
     public struct ControlsActions
     {
         private @PlayerControls m_Wrapper;
@@ -341,6 +407,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_Controls_Shoot;
         public InputAction @Look => m_Wrapper.m_Controls_Look;
         public InputAction @Holster => m_Wrapper.m_Controls_Holster;
+        public InputAction @PrimaryWeapon => m_Wrapper.m_Controls_PrimaryWeapon;
+        public InputAction @SecondaryWeapon => m_Wrapper.m_Controls_SecondaryWeapon;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -365,6 +433,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Holster.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnHolster;
                 @Holster.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnHolster;
                 @Holster.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnHolster;
+                @PrimaryWeapon.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPrimaryWeapon;
+                @PrimaryWeapon.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPrimaryWeapon;
+                @PrimaryWeapon.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPrimaryWeapon;
+                @SecondaryWeapon.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnSecondaryWeapon;
+                @SecondaryWeapon.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnSecondaryWeapon;
+                @SecondaryWeapon.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnSecondaryWeapon;
             }
             m_Wrapper.m_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -384,6 +458,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Holster.started += instance.OnHolster;
                 @Holster.performed += instance.OnHolster;
                 @Holster.canceled += instance.OnHolster;
+                @PrimaryWeapon.started += instance.OnPrimaryWeapon;
+                @PrimaryWeapon.performed += instance.OnPrimaryWeapon;
+                @PrimaryWeapon.canceled += instance.OnPrimaryWeapon;
+                @SecondaryWeapon.started += instance.OnSecondaryWeapon;
+                @SecondaryWeapon.performed += instance.OnSecondaryWeapon;
+                @SecondaryWeapon.canceled += instance.OnSecondaryWeapon;
             }
         }
     }
@@ -413,5 +493,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnHolster(InputAction.CallbackContext context);
+        void OnPrimaryWeapon(InputAction.CallbackContext context);
+        void OnSecondaryWeapon(InputAction.CallbackContext context);
     }
 }
