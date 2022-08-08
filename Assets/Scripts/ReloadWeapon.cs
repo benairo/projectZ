@@ -52,7 +52,6 @@ public class ReloadWeapon : MonoBehaviour
 
     void OnAnimationEvent(string eventName)
     {
-        print(eventName);
         switch (eventName)
         {
             case "detach_magazine":
