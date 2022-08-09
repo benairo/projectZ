@@ -47,6 +47,8 @@ public class RaycastWeapon : MonoBehaviour
 
     public GameObject magazine;
 
+    public float damage = 10;
+
     private Ray _ray;
 
     private RaycastHit _hitInfo;
@@ -173,6 +175,12 @@ public class RaycastWeapon : MonoBehaviour
             if (rb2d)
             {
                 rb2d.AddForceAtPosition(_ray.direction * 20, _hitInfo.point, ForceMode.Impulse);
+            }
+            
+            var hitBox = _hitInfo.collider.GetComponent<HitBox>();
+            if (hitBox)
+            {
+                hitBox.OnRaycastHit(this, _ray.direction);
             }
         }
 
