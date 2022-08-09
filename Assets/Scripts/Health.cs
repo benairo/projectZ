@@ -7,16 +7,14 @@ public class Health : MonoBehaviour
     public float maxHealth;
     [HideInInspector]
     public float currentHealth;
-
-    public float dieForce;
-
-    private RagDoll _ragDoll;
+    
+    private ZombieAgent _agent;
 
     private UIHealthBar _healthBar;
 // Start is called before the first frame update
     void Start()
     {
-        _ragDoll = GetComponent<RagDoll>();
+        _agent = GetComponent<ZombieAgent>();
         currentHealth = maxHealth;
         _healthBar = GetComponentInChildren<UIHealthBar>();
 
@@ -40,9 +38,8 @@ public class Health : MonoBehaviour
 
     private void Die(Vector3 direction)
     {
-        _ragDoll.ActivateRagDoll();
-        direction.y = 1;
-        _ragDoll.ApplyForce(direction * dieForce);
-        _healthBar.gameObject.SetActive(false);
+        ZombieDeathState deathState = _agent.stateMachine.GetState(ZombieStateID.Death) as ZombieDeathState;
+        deathState.direction = direction;
+        _agent.stateMachine.ChangeState(ZombieStateID.Death);
     }
 }
