@@ -9,11 +9,14 @@ public class Health : MonoBehaviour
     public float currentHealth;
 
     private RagDoll _ragDoll;
+
+    private UIHealthBar _healthBar;
 // Start is called before the first frame update
     void Start()
     {
         _ragDoll = GetComponent<RagDoll>();
         currentHealth = maxHealth;
+        _healthBar = GetComponentInChildren<UIHealthBar>();
 
         var rigidBodies = GetComponentsInChildren<Rigidbody>();
         foreach (var rigidBody in rigidBodies)
@@ -26,6 +29,7 @@ public class Health : MonoBehaviour
     public void TakeDamage(float amount, Vector3 direction)
     {
         currentHealth -= amount;
+        _healthBar.SetHealthBarPercentage(currentHealth / maxHealth);
         if (currentHealth <= 0.0f)
         {
             Die();
@@ -35,5 +39,6 @@ public class Health : MonoBehaviour
     private void Die()
     {
         _ragDoll.ActivateRagDoll();
+        _healthBar.gameObject.SetActive(false);
     }
 }
