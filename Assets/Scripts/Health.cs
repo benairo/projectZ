@@ -8,6 +8,8 @@ public class Health : MonoBehaviour
     [HideInInspector]
     public float currentHealth;
 
+    public float dieForce;
+
     private RagDoll _ragDoll;
 
     private UIHealthBar _healthBar;
@@ -32,13 +34,15 @@ public class Health : MonoBehaviour
         _healthBar.SetHealthBarPercentage(currentHealth / maxHealth);
         if (currentHealth <= 0.0f)
         {
-            Die();
+            Die(direction);
         }
     }
 
-    private void Die()
+    private void Die(Vector3 direction)
     {
         _ragDoll.ActivateRagDoll();
+        direction.y = 1;
+        _ragDoll.ApplyForce(direction * dieForce);
         _healthBar.gameObject.SetActive(false);
     }
 }

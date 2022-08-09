@@ -33,5 +33,13 @@ public class RagDoll : MonoBehaviour
 
         _animator.enabled = false;
     }
-    
+
+    public void ApplyForce(Vector3 force)
+    {
+        var rigidBody = _animator.GetBoneTransform(HumanBodyBones.Head).GetComponent<Rigidbody>();
+        if (rigidBody)
+        {
+            rigidBody.AddForce(force, ForceMode.VelocityChange);
+        }
+    }
 }

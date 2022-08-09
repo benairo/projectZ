@@ -9526,6 +9526,7 @@ MonoBehaviour:
   clipSize: 30
   recoil: {fileID: 0}
   magazine: {fileID: 6130111890391958633}
+  damage: 50
 --- !u!114 &-5040971162697371223
 MonoBehaviour:
   m_ObjectHideFlags: 0
