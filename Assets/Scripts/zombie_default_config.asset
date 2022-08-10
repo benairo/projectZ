@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTime: 1
   maxDistance: 1
-  dieForce: 1000
+  dieForce: 10
   maxSightDistance: 5
+  attackTimer: 2
