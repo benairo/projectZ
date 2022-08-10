@@ -24,7 +24,10 @@ public class ZombieAttackState : ZombieState
         
         if (_timer <= 0.0f)
         {
-            agent.transform.Rotate(agent.playerTransform.position);
+            Vector3 direction = (agent.playerTransform.position - agent.navMeshAgent.transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            agent.navMeshAgent.transform.rotation = Quaternion.Slerp(agent.navMeshAgent.transform.rotation,
+                lookRotation, Time.deltaTime * 2.0f);
             if (!agent.animator.GetCurrentAnimatorStateInfo(0).IsName("Zombie Attack"))
             {
                 if (distance > 2.0f)
