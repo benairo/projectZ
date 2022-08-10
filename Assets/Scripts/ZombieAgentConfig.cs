@@ -14,4 +14,6 @@ public class ZombieAgentConfig : ScriptableObject
     public float maxSightDistance = 5.0f;
 
     public float attackTimer;
+
+    public float damageAmount;
 }

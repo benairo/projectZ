@@ -17,3 +17,4 @@ MonoBehaviour:
   dieForce: 10
   maxSightDistance: 5
   attackTimer: 2
+  damageAmount: 35

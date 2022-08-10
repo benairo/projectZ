@@ -8,12 +8,10 @@ public class Health : MonoBehaviour
     [HideInInspector]
     public float currentHealth;
     
-    private UIHealthBar _healthBar;
 // Start is called before the first frame update
     void Start()
     { 
         currentHealth = maxHealth;
-        _healthBar = GetComponentInChildren<UIHealthBar>();
 
         var rigidBodies = GetComponentsInChildren<Rigidbody>();
         foreach (var rigidBody in rigidBodies)
@@ -28,7 +26,6 @@ public class Health : MonoBehaviour
     public void TakeDamage(float amount, Vector3 direction)
     {
         currentHealth -= amount;
-        _healthBar.SetHealthBarPercentage(currentHealth / maxHealth);
         OnDamage(direction);
         if (currentHealth <= 0.0f)
         {
