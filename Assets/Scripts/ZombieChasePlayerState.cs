@@ -14,10 +14,10 @@ public class ZombieChasePlayerState : ZombieState
 
     public void Enter(ZombieAgent agent)
     {
-        if (agent.playerTransform == null)
-        {
-            agent.playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        }
+        // if (agent.playerTransform == null)
+        // {
+        //     agent.playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        // }
     }
 
     public void Update(ZombieAgent agent)
@@ -47,6 +47,13 @@ public class ZombieChasePlayerState : ZombieState
             }
 
             _timer = agent.config.maxTime;
+
+            float distance = Vector3.Distance(agent.playerTransform.position, agent.navMeshAgent.transform.position);
+
+            if (distance < 2.0f)
+            {
+                agent.stateMachine.ChangeState(ZombieStateID.Attack);
+            }
         }
     }
 

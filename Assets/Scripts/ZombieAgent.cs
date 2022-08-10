@@ -18,20 +18,22 @@ public class ZombieAgent : MonoBehaviour
     public UIHealthBar ui;
     
     public Transform playerTransform;
-    // Start is called before the first frame update
+
+    public Animator animator;
     void Start()
     {
         ragDoll = GetComponent<RagDoll>();
         ui = GetComponentInChildren<UIHealthBar>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
         stateMachine = new ZombieStateMachine(this);
         stateMachine.RegisterState(new ZombieChasePlayerState());
         stateMachine.RegisterState(new ZombieDeathState());
         stateMachine.RegisterState(new ZombieIdleState());
+        stateMachine.RegisterState(new ZombieAttackState());
         stateMachine.ChangeState(initialState);
     }
 
-    // Update is called once per frame
     void Update()
     {
         stateMachine.Update();

@@ -7,7 +7,8 @@ public enum ZombieStateID
 {
     ChasePlayer,
     Death,
-    Idle
+    Idle,
+    Attack
 }
 
 public interface ZombieState 
