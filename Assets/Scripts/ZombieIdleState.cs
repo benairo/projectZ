@@ -11,25 +11,28 @@ public class ZombieIdleState : ZombieState
 
     public void Enter(ZombieAgent agent)
     {
-        
+        agent.navMeshAgent.ResetPath();
     }
     
     public void Update(ZombieAgent agent)
     {
-        Vector3 playerDirection = agent.playerTransform.position - agent.transform.position;
-        if (playerDirection.magnitude > agent.config.maxSightDistance)
+        if (!agent.playerHealth.IsDead())
         {
-            return;
-        }
+            Vector3 playerDirection = agent.playerTransform.position - agent.transform.position;
+            if (playerDirection.magnitude > agent.config.maxSightDistance)
+            {
+                return;
+            }
 
-        Vector3 agentDirection = agent.transform.forward;
-        
-        playerDirection.Normalize();
+            Vector3 agentDirection = agent.transform.forward;
 
-        float dotProduct = Vector3.Dot(playerDirection, agentDirection);
-        if (dotProduct > 0.0f)
-        {
-            agent.stateMachine.ChangeState(ZombieStateID.ChasePlayer);
+            playerDirection.Normalize();
+
+            float dotProduct = Vector3.Dot(playerDirection, agentDirection);
+            if (dotProduct > 0.0f)
+            {
+                agent.stateMachine.ChangeState(ZombieStateID.ChasePlayer);
+            }
         }
     }
     

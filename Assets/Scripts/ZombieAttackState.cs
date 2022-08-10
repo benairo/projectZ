@@ -7,8 +7,7 @@ using UnityEngine.InputSystem.Interactions;
 public class ZombieAttackState : ZombieState
 {
     private float _timer;
-
-    private PlayerHealth _playerHealth;
+    
     public ZombieStateID GetID()
     {
         return ZombieStateID.Attack;
@@ -16,7 +15,7 @@ public class ZombieAttackState : ZombieState
 
     public void Enter(ZombieAgent agent)
     {
-        _playerHealth = agent.playerTransform.GetComponent<PlayerHealth>();
+        
     }
     
     public void Update(ZombieAgent agent)
@@ -40,11 +39,16 @@ public class ZombieAttackState : ZombieState
 
                 agent.animator.SetTrigger("Attack");
                 Vector3 noDirection = Vector3.zero;
-                _playerHealth.TakeDamage(agent.config.damageAmount, noDirection);
+                agent.playerHealth.TakeDamage(agent.config.damageAmount, noDirection);
+                if (agent.playerHealth.IsDead())
+                {
+                    agent.stateMachine.ChangeState(ZombieStateID.Idle);
+                }
                 _timer = agent.config.attackTimer;
             }
         }
     }
+    
     
     public void Exit(ZombieAgent agent)
     {

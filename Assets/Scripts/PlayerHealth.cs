@@ -6,12 +6,9 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerHealth : Health
 {
-    private PlayerAiming _aiming;
-
     private VolumeProfile _postProcessing;
     protected override void OnStart()
     {
-        _aiming = GetComponent<PlayerAiming>();
         _postProcessing = FindObjectOfType<Volume>().profile;
     }
 
@@ -27,7 +24,6 @@ public class PlayerHealth : Health
 
     protected override void OnDeath(Vector3 direction)
     {
-        _aiming.enabled = false;
         Debug.Log("You have died!");
     }
 }
