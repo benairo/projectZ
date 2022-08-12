@@ -25,7 +25,7 @@ public class ActiveWeapon : MonoBehaviour
     
     public AmmoWidget ammoWidget;
 
-    private RaycastWeapon[] _equippedWeapons = new RaycastWeapon[2];
+    private readonly RaycastWeapon[] _equippedWeapons = new RaycastWeapon[2];
     
     private int _activeWeaponIndex;
     

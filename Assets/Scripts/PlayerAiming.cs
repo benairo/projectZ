@@ -25,7 +25,7 @@ public class PlayerAiming : MonoBehaviour
 
     private ActiveWeapon _activeWeapon;
 
-    private int _isAimingParam = Animator.StringToHash("isAiming");
+    private readonly int _isAimingParam = Animator.StringToHash("isAiming");
 
     private bool _isAiming;
     
