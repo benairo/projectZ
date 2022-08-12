@@ -86158,13 +86158,24 @@ MonoBehaviour:
     m_ActionId: e637dbf7-e15d-4e63-9767-d5f23b0e43e1
     m_ActionName: Controls/Movement[/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4964693583098737003}
+        m_MethodName: AimingPerformed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 09c17b3b-7101-4668-9425-05afb0dd500c
     m_ActionName: Controls/Aim[/XInputControllerWindows/rightStick,/Mouse/position]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4964693583098737005}
-        m_MethodName: GetShootInput
+      - m_Target: {fileID: 4964693583098736999}
+        m_MethodName: 
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -86258,7 +86269,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSpeed: 15
-  aimDuration: 0.3
   cameraPoint: {fileID: 1331204380}
   xAxis:
     Value: 0

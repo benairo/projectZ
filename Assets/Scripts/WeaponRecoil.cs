@@ -15,6 +15,8 @@ public class WeaponRecoil : MonoBehaviour
 
     public float duration;
 
+    public float recoilModifier = 1.0f;
+
     private float _verticalRecoil;
     private float _horizontalRecoil;
     private float _time;
@@ -53,8 +55,8 @@ public class WeaponRecoil : MonoBehaviour
     {
         if (_time > 0)
         {
-            playerAiming.yAxis.Value -= ((_verticalRecoil/10) * Time.deltaTime) / duration;
-            playerAiming.xAxis.Value -= ((_horizontalRecoil/10) * Time.deltaTime) / duration;
+            playerAiming.yAxis.Value -= (((_verticalRecoil/10) * Time.deltaTime) / duration) * recoilModifier;
+            playerAiming.xAxis.Value -= (((_horizontalRecoil/10) * Time.deltaTime) / duration) * recoilModifier;
             _time -= Time.deltaTime;
         }
     }
