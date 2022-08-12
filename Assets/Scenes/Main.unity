@@ -27105,7 +27105,7 @@ Transform:
   - {fileID: 1116067582}
   - {fileID: 525664759}
   m_Father: {fileID: 4966869139733451801}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &724892849 stripped
 GameObject:
@@ -42768,6 +42768,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1116067582}
   - component: {fileID: 1116067583}
+  - component: {fileID: 1116067584}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -42825,6 +42826,21 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1990845607}
+--- !u!114 &1116067584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116067581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ChannelMask: 1
+  m_Gain: 1
+  m_Use2DDistance: 0
 --- !u!1001 &1116086104
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -86318,7 +86334,7 @@ MonoBehaviour:
   - {fileID: 1855029842}
   - {fileID: 362694199}
   rigController: {fileID: 1877160008}
-  playerCamera: {fileID: 525664758}
+  playerAiming: {fileID: 4964693583098737003}
   ammoWidget: {fileID: 1156147586}
 --- !u!114 &4964693583098737006
 MonoBehaviour:
@@ -86984,7 +87000,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4966869139733451801}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4966793247713410039
 Transform:
@@ -87102,8 +87118,8 @@ Transform:
   m_LocalPosition: {x: 151.03, y: 0, z: -12.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 724048938}
   - {fileID: 4966755938951118349}
+  - {fileID: 724048938}
   - {fileID: 4968048539953338843}
   - {fileID: 1877160007}
   m_Father: {fileID: 0}
