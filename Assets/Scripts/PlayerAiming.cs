@@ -11,6 +11,14 @@ public class PlayerAiming : MonoBehaviour
 
     public float aimDuration = 0.3f;
 
+    public Transform cameraPoint;
+
+    public Cinemachine.AxisState xAxis;
+
+    public Cinemachine.AxisState yAxis;
+
+    private Cinemachine.CinemachineInputProvider _inputAxisProvider;
+
     private PlayerInput _playerInput;
 
     private Camera _camera;
@@ -19,8 +27,12 @@ public class PlayerAiming : MonoBehaviour
     
     
     // Start is called before the first frame update
+    
     void Start()
     {
+        _inputAxisProvider = GetComponent<Cinemachine.CinemachineInputProvider>();
+        xAxis.SetInputAxisProvider(0, _inputAxisProvider);
+        yAxis.SetInputAxisProvider(1, _inputAxisProvider);
         _playerInput = GetComponent<PlayerInput>();
         _aimAction = _playerInput.actions["Aim"];
         _camera = Camera.main;
@@ -31,20 +43,17 @@ public class PlayerAiming : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        xAxis.Update(Time.fixedDeltaTime);
+        yAxis.Update(Time.fixedDeltaTime);
+
+        cameraPoint.eulerAngles = new Vector3(yAxis.Value, xAxis.Value, 0);
+        
         float yawCamera = _camera.transform.rotation.eulerAngles.y;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, yawCamera, 0), turnSpeed * Time.fixedDeltaTime);
     }
 
     private void LateUpdate()
     {
-        // if (_aimAction.IsPressed())
-        // {
-        //     aimLayer.weight += Time.deltaTime / aimDuration;
-        // }
-        // else
-        // {
-        //     aimLayer.weight -= Time.deltaTime / aimDuration;
-        // }
 
     }
 }
