@@ -9,14 +9,12 @@ public class AmmoWidget : MonoBehaviour
     public TMPro.TMP_Text ammoText;
 
     public Image ammoImage;
-
-    public GameObject player;
-
+    
     private ActiveWeapon _weapon;
 
     public void Start()
     {
-        _weapon = player.GetComponent<ActiveWeapon>();
+        _weapon = GameObject.FindGameObjectWithTag("Player").GetComponent<ActiveWeapon>();
         ammoText.enabled = false;
         ammoImage.enabled = false;
     }

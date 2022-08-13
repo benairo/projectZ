@@ -9,6 +9,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerMovement : MonoBehaviour
 {
+    public float stepDown;
+    
     private PlayerControls _playerControls;
 
     private PlayerInput _playerInput;
@@ -48,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         _animator.SetFloat("InputX", _input.x);
         _animator.SetFloat("InputY", _input.y);
 
-        _charController.Move(_rootMotion);
+        _charController.Move(_rootMotion + Vector3.down * stepDown);
         _rootMotion = Vector3.zero;
 
     }
