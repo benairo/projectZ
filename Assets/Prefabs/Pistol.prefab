@@ -4821,9 +4821,10 @@ MonoBehaviour:
     type: 3}
   weaponName: pistol
   ammoCount: 7
-  clipSize: 7
+  clipSize: 14
   recoil: {fileID: 0}
   magazine: {fileID: 0}
+  damage: 10
 --- !u!114 &8487961819190607770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4836,12 +4837,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f366d6cb4df8949aff276c7bfe71f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 0}
+  playerAiming: {fileID: 0}
   cameraShake: {fileID: 0}
   rigController: {fileID: 0}
   recoilPattern:
   - {x: 0, y: 0}
   duration: 0
+  recoilModifier: 1
 --- !u!114 &-2979543179533148506
 MonoBehaviour:
   m_ObjectHideFlags: 0

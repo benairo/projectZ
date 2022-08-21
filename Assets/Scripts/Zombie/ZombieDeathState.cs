@@ -13,6 +13,8 @@ public class ZombieDeathState : ZombieState
     public void Enter(ZombieAgent agent)
     {
         agent.ragDoll.ActivateRagDoll();
+        agent.waveManager.zombiesKilled++;
+        agent.zombieSpawner.currentZombieAmount--;
         direction.y = 1;
         agent.ragDoll.ApplyForce(direction * agent.config.dieForce);
         agent.ui.gameObject.SetActive(false);

@@ -22,13 +22,20 @@ public class ZombieAgent : MonoBehaviour
     public Animator animator;
 
     public PlayerHealth playerHealth;
+
+    public WaveManager waveManager;
+
+    public ZombieSpawner zombieSpawner;
     void Start()
     {
         ragDoll = GetComponent<RagDoll>();
         ui = GetComponentInChildren<UIHealthBar>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playerHealth = playerTransform.GetComponent<PlayerHealth>();
+        waveManager = GameObject.FindGameObjectWithTag("WaveManager").GetComponent<WaveManager>();
+        zombieSpawner = waveManager.GetComponentInChildren<ZombieSpawner>();
         stateMachine = new ZombieStateMachine(this);
         stateMachine.RegisterState(new ZombieChasePlayerState());
         stateMachine.RegisterState(new ZombieDeathState());
