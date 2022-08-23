@@ -26,7 +26,7 @@ public class ZombieAgent : MonoBehaviour
     public WaveManager waveManager;
 
     public ZombieSpawner zombieSpawner;
-    void Start()
+    private void Start()
     {
         ragDoll = GetComponent<RagDoll>();
         ui = GetComponentInChildren<UIHealthBar>();
@@ -44,7 +44,7 @@ public class ZombieAgent : MonoBehaviour
         stateMachine.ChangeState(initialState);
     }
 
-    void Update()
+    private void Update()
     {
         stateMachine.Update();
     }

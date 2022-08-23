@@ -9539,7 +9539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f366d6cb4df8949aff276c7bfe71f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 0}
+  playerAiming: {fileID: 0}
   cameraShake: {fileID: 0}
   rigController: {fileID: 0}
   recoilPattern:
@@ -9560,6 +9560,7 @@ MonoBehaviour:
   - {x: 7, y: 10}
   - {x: 10, y: 10}
   duration: 0.1
+  recoilModifier: 1
 --- !u!114 &6055098095252403961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10791,7 +10792,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
   EmissionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 4
     rateOverTime:
       serializedVersion: 2
