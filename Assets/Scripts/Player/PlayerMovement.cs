@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _rootMotion;
 
     private CharacterController _charController;
-
+    
     private void Awake()
     {
         _playerControls = new PlayerControls();
@@ -46,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         _input = _playerControls.Controls.Movement.ReadValue<Vector2>();
+        
+        print(_input);
 
         _animator.SetFloat("InputX", _input.x);
         _animator.SetFloat("InputY", _input.y);
