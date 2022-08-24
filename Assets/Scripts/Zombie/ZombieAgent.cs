@@ -26,6 +26,8 @@ public class ZombieAgent : MonoBehaviour
     public WaveManager waveManager;
 
     public ZombieSpawner zombieSpawner;
+
+    public PlayerPoints playerPoints;
     private void Start()
     {
         ragDoll = GetComponent<RagDoll>();
@@ -36,6 +38,7 @@ public class ZombieAgent : MonoBehaviour
         playerHealth = playerTransform.GetComponent<PlayerHealth>();
         waveManager = GameObject.FindGameObjectWithTag("WaveManager").GetComponent<WaveManager>();
         zombieSpawner = waveManager.GetComponentInChildren<ZombieSpawner>();
+        playerPoints = playerTransform.GetComponentInChildren<PlayerPoints>();
         stateMachine = new ZombieStateMachine(this);
         stateMachine.RegisterState(new ZombieChasePlayerState());
         stateMachine.RegisterState(new ZombieDeathState());

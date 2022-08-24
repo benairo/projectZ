@@ -5,6 +5,8 @@ using UnityEngine;
 public class ZombieDeathState : ZombieState
 {
     public Vector3 direction;
+
+    private bool _pointsGiven;
     public ZombieStateID GetID()
     {
         return ZombieStateID.Death;
@@ -12,11 +14,18 @@ public class ZombieDeathState : ZombieState
 
     public void Enter(ZombieAgent agent)
     {
+        
         agent.ragDoll.ActivateRagDoll();
-        agent.waveManager.zombiesKilled++;
-        agent.zombieSpawner.currentZombieAmount--;
         direction.y = 1;
+        if (!_pointsGiven)
+        {
+            agent.waveManager.zombiesKilled++;
+            agent.zombieSpawner.currentZombieAmount--;
+            agent.playerPoints.Transaction(50, true);
+            _pointsGiven = true;
+        }
         agent.ragDoll.ApplyForce(direction * agent.config.dieForce);
+        agent.navMeshAgent.ResetPath();
         agent.ui.gameObject.SetActive(false);
     }
 
@@ -27,6 +36,5 @@ public class ZombieDeathState : ZombieState
 
     public void Exit(ZombieAgent agent)
     {
-        
     }
 }

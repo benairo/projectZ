@@ -49,6 +49,8 @@ public class RaycastWeapon : MonoBehaviour
 
     public float damage = 10;
 
+    private AudioSource _gunShotSound;
+
     private Ray _ray;
 
     private RaycastHit _hitInfo;
@@ -62,6 +64,7 @@ public class RaycastWeapon : MonoBehaviour
     private void Awake()
     {
         recoil = GetComponent<WeaponRecoil>();
+        _gunShotSound = GetComponent<AudioSource>();
     }
 
     Vector3 GetPosition(Bullet bullet)
@@ -202,7 +205,7 @@ public class RaycastWeapon : MonoBehaviour
         Vector3 velocity = (raycastDestination.position - raycastOrigin.position).normalized * bulletSpeed;
         var bullet = CreateBullet(raycastOrigin.position, velocity);
         bullets.Add(bullet);
-        
+        _gunShotSound.Play();
         recoil.GenerateRecoil(weaponName);
     }
 
