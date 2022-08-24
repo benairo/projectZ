@@ -47,8 +47,6 @@ public class PlayerMovement : MonoBehaviour
     {
         _input = _playerControls.Controls.Movement.ReadValue<Vector2>();
         
-        print(_input);
-
         _animator.SetFloat("InputX", _input.x);
         _animator.SetFloat("InputY", _input.y);
 

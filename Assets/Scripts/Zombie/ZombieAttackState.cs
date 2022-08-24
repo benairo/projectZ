@@ -38,6 +38,8 @@ public class ZombieAttackState : ZombieState
                 }
 
                 agent.animator.SetTrigger("Attack");
+                agent.audioSource.clip = agent.attackSounds[0];
+                agent.audioSource.PlayOneShot(agent.attackSounds[0]);
                 Vector3 noDirection = Vector3.zero;
                 agent.playerHealth.TakeDamage(agent.config.damageAmount, noDirection);
                 if (agent.playerHealth.IsDead())

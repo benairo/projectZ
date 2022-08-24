@@ -58,7 +58,6 @@ public class ZombieSpawner : MonoBehaviour
     {
         Vector3 spawnPoint = zombieSpawnPoints[Random.Range(0, zombieSpawnPoints.Length)].position;
         GameObject zombiePrefab = zombiePrefabs[Random.Range(0, zombiePrefabs.Length)];
-        print(spawnPoint);
         Instantiate(zombiePrefab, spawnPoint, Quaternion.identity);
         currentZombieAmount++;
     }

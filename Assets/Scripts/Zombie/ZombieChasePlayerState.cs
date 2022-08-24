@@ -18,10 +18,12 @@ public class ZombieChasePlayerState : ZombieState
         // {
         //     agent.playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         // }
+        
     }
 
     public void Update(ZombieAgent agent)
     {
+        
         if (!agent.enabled)
         {
             return;

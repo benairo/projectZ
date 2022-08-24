@@ -28,6 +28,13 @@ public class ZombieAgent : MonoBehaviour
     public ZombieSpawner zombieSpawner;
 
     public PlayerPoints playerPoints;
+
+    public AudioClip[] attackSounds;
+
+    public AudioClip[] growlSounds;
+
+    public AudioSource audioSource;
+
     private void Start()
     {
         ragDoll = GetComponent<RagDoll>();
@@ -39,6 +46,7 @@ public class ZombieAgent : MonoBehaviour
         waveManager = GameObject.FindGameObjectWithTag("WaveManager").GetComponent<WaveManager>();
         zombieSpawner = waveManager.GetComponentInChildren<ZombieSpawner>();
         playerPoints = playerTransform.GetComponentInChildren<PlayerPoints>();
+        audioSource = GetComponent<AudioSource>();
         stateMachine = new ZombieStateMachine(this);
         stateMachine.RegisterState(new ZombieChasePlayerState());
         stateMachine.RegisterState(new ZombieDeathState());

@@ -8,7 +8,7 @@ public class AmmoWidget : MonoBehaviour
 {
     public TMPro.TMP_Text weaponAmmoText;
 
-    public TMPro.TMP_Text totalAmmoText;
+    // public TMPro.TMP_Text totalAmmoText;
 
     public Image ammoImage;
     
@@ -18,7 +18,7 @@ public class AmmoWidget : MonoBehaviour
     {
         _weapon = GameObject.FindGameObjectWithTag("Player").GetComponent<ActiveWeapon>();
         weaponAmmoText.enabled = false;
-        totalAmmoText.enabled = false;
+        // totalAmmoText.enabled = false;
         ammoImage.enabled = false;
     }
 
