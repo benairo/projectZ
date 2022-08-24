@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class AmmoWidget : MonoBehaviour
 {
-    public TMPro.TMP_Text ammoText;
+    public TMPro.TMP_Text weaponAmmoText;
+
+    public TMPro.TMP_Text totalAmmoText;
 
     public Image ammoImage;
     
@@ -15,7 +17,8 @@ public class AmmoWidget : MonoBehaviour
     public void Start()
     {
         _weapon = GameObject.FindGameObjectWithTag("Player").GetComponent<ActiveWeapon>();
-        ammoText.enabled = false;
+        weaponAmmoText.enabled = false;
+        totalAmmoText.enabled = false;
         ammoImage.enabled = false;
     }
 
@@ -24,8 +27,8 @@ public class AmmoWidget : MonoBehaviour
         var weapon = _weapon.GetActiveWeapon();
         if (weapon)
         {
-            ammoText.enabled = true;
-            ammoText.text = ammoCount.ToString();
+            weaponAmmoText.enabled = true;
+            weaponAmmoText.text = ammoCount.ToString();
             ammoImage.enabled = true;
         }
     }
