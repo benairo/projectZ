@@ -16,14 +16,20 @@ public class ReloadWeapon : MonoBehaviour
 
     public AmmoWidget ammoWidget;
 
+    public AudioClip detachSound;
+
+    public AudioClip attachSound;
+
+    private AudioSource _audioSource;
+
     private bool _reloadAction;
 
     private GameObject _magazineHand;
-    // Start is called before the first frame update
 
     public void GetReloadAction(InputAction.CallbackContext context)
     {
         _reloadAction = context.performed;
+        _audioSource = GetComponent<AudioSource>();
     }
     
     void Start()
@@ -31,7 +37,6 @@ public class ReloadWeapon : MonoBehaviour
         animationEvents.WeaponAnimationEvent.AddListener(OnAnimationEvent);
     }
 
-    // Update is called once per frame
     void Update()
     {
         RaycastWeapon weapon = activeWeapon.GetActiveWeapon();
@@ -72,8 +77,10 @@ public class ReloadWeapon : MonoBehaviour
     void DetachMagazine()
     {
         RaycastWeapon weapon = activeWeapon.GetActiveWeapon();
+        _audioSource.PlayOneShot(detachSound);
         _magazineHand = Instantiate(weapon.magazine, leftHand, true);
         weapon.magazine.SetActive(false);
+        
     }
 
     void DropMagazine()
@@ -93,6 +100,7 @@ public class ReloadWeapon : MonoBehaviour
     void AttachMagazine()
     {
         RaycastWeapon weapon = activeWeapon.GetActiveWeapon();
+        _audioSource.PlayOneShot(attachSound);
         weapon.magazine.SetActive(true);
         Destroy(_magazineHand);
         weapon.ammoCount = weapon.clipSize;
