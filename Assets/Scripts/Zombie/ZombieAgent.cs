@@ -35,11 +35,14 @@ public class ZombieAgent : MonoBehaviour
 
     public AudioSource audioSource;
 
+    public ZombieHealth health;
+
     private void Start()
     {
         ragDoll = GetComponent<RagDoll>();
         ui = GetComponentInChildren<UIHealthBar>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        
         animator = GetComponent<Animator>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playerHealth = playerTransform.GetComponent<PlayerHealth>();
@@ -47,6 +50,8 @@ public class ZombieAgent : MonoBehaviour
         zombieSpawner = waveManager.GetComponentInChildren<ZombieSpawner>();
         playerPoints = playerTransform.GetComponentInChildren<PlayerPoints>();
         audioSource = GetComponent<AudioSource>();
+        health = GetComponent<ZombieHealth>();
+        health.currentHealth = zombieSpawner.zombieHealth;
         stateMachine = new ZombieStateMachine(this);
         stateMachine.RegisterState(new ZombieChasePlayerState());
         stateMachine.RegisterState(new ZombieDeathState());

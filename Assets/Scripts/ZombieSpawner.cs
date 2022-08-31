@@ -15,10 +15,10 @@ public class ZombieSpawner : MonoBehaviour
     public bool isSpawning;
 
     public int currentZombieAmount;
+    
+    public float zombieHealth = 100.0f;
 
     private float _cooldown;
-    
-    private float _zombieHealth;
     
     private WaveManager _waveManager;
 
@@ -41,7 +41,7 @@ public class ZombieSpawner : MonoBehaviour
         {
             return;
         }
-        print(isSpawning);
+        
         if (isSpawning)
         {
             _cooldown += Time.deltaTime;
@@ -64,7 +64,7 @@ public class ZombieSpawner : MonoBehaviour
     
     public void UpdateZombieHealth()
     {
-        _zombieHealth *= 1.1f;
+        zombieHealth *= 1.1f;
     }
 
     public void UpdateZombieAmount()

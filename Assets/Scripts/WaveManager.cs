@@ -12,7 +12,7 @@ public class WaveManager : MonoBehaviour
 
     public WaveCountWidget waveCountWidget;
     
-    public int roundCooldown = 5;
+    public int roundCooldown = 10;
     
     private ZombieSpawner _zombieSpawner;
     void Start()
