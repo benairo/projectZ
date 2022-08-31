@@ -41,7 +41,7 @@ public class ZombieSpawner : MonoBehaviour
         {
             return;
         }
-        
+        print(isSpawning);
         if (isSpawning)
         {
             _cooldown += Time.deltaTime;

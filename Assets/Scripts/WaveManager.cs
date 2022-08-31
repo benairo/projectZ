@@ -12,7 +12,7 @@ public class WaveManager : MonoBehaviour
 
     public WaveCountWidget waveCountWidget;
     
-    private int _roundCooldown = 5;
+    public int roundCooldown = 5;
     
     private ZombieSpawner _zombieSpawner;
     void Start()
@@ -28,6 +28,7 @@ public class WaveManager : MonoBehaviour
         }
         if (zombiesKilled == _zombieSpawner.zombieRoundAmount)
         {
+            _zombieSpawner.isSpawning = false;
             NextWave();
         }
     }
@@ -38,7 +39,7 @@ public class WaveManager : MonoBehaviour
         waveCountWidget.Refresh(waveNumber);
         _zombieSpawner.UpdateZombieHealth();
         _zombieSpawner.UpdateZombieAmount();
-        StartCoroutine(StartSpawning(_roundCooldown));
+        StartCoroutine(StartSpawning(roundCooldown));
 
     }
 
