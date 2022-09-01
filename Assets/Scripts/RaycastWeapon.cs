@@ -61,6 +61,9 @@ public class RaycastWeapon : MonoBehaviour
 
     private float maxLifetime = 3.0f;
 
+    [SerializeField]
+    private InputActionReference shoot;
+    
     private void Awake()
     {
         recoil = GetComponent<WeaponRecoil>();
@@ -98,9 +101,7 @@ public class RaycastWeapon : MonoBehaviour
 
     public void UpdateWeapon(float deltaTime)
     {
-        var mouse = Mouse.current;
-
-        if (mouse.leftButton.wasPressedThisFrame)
+        if (shoot.action.WasPressedThisFrame())
         {
             StartFiring();
         }
@@ -111,7 +112,8 @@ public class RaycastWeapon : MonoBehaviour
         }
 
         UpdateBullet(deltaTime);
-        if (mouse.leftButton.wasReleasedThisFrame)
+        
+        if (shoot.action.WasReleasedThisFrame())
         {
             StopFiring();
         }

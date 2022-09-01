@@ -9528,6 +9528,7 @@ MonoBehaviour:
   recoil: {fileID: 0}
   magazine: {fileID: 6130111890391958633}
   damage: 50
+  shoot: {fileID: -7421422401676414547, guid: 0b30f8027ce599a4384a0a1b4fae6fd9, type: 3}
 --- !u!114 &-5040971162697371223
 MonoBehaviour:
   m_ObjectHideFlags: 0
