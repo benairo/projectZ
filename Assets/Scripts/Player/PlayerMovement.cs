@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _input = _playerControls.Controls.Movement.ReadValue<Vector2>();
         
+        // Pass the input values in to the animator parameters
         _animator.SetFloat("InputX", _input.x);
         _animator.SetFloat("InputY", _input.y);
 
@@ -54,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
         _rootMotion = Vector3.zero;
 
     }
+    // Change controls scheme when player's device changes
     public void OnDeviceChange(PlayerInput pi)
     {
         _isGamePad = pi.currentControlScheme.Equals("Gamepad") ? true : false;

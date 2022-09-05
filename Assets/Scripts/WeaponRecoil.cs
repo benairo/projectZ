@@ -50,7 +50,7 @@ public class WeaponRecoil : MonoBehaviour
         
         rigController.Play("weapon_recoil_" + weaponName, 1, 0.0f);
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (_time > 0)

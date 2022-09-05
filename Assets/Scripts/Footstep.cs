@@ -8,6 +8,7 @@ public class Footstep : MonoBehaviour
 
     public AudioClip footstep;
 
+    // Function is called by animation events on the movement animations
     void Step()
     {
         source.clip = footstep;

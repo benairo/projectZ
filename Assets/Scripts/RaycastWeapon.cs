@@ -12,7 +12,6 @@ public class RaycastWeapon : MonoBehaviour
         public Vector3 initialPosition;
         public Vector3 initialVelocity;
         public TrailRenderer tracer;
-        public int bounce;
     }
 
     public ActiveWeapon.WeaponSlot WeaponSlot;
@@ -24,12 +23,10 @@ public class RaycastWeapon : MonoBehaviour
     public float bulletSpeed = 1000.0f;
 
     public float bulletDrop = 0.0f;
-
-    public int maxBounces = 0;
-
+    
     public ParticleSystem[] muzzleFlash;
 
-    public ParticleSystem hitEffect;
+    public ParticleSystem[] hitEffect;
 
     public Transform raycastOrigin;
 
@@ -41,7 +38,9 @@ public class RaycastWeapon : MonoBehaviour
 
     public int ammoCount;
 
-    public int clipSize;
+    public int mageSize;
+
+    public int magCount;
 
     public WeaponRecoil recoil;
 
@@ -69,7 +68,21 @@ public class RaycastWeapon : MonoBehaviour
         recoil = GetComponent<WeaponRecoil>();
         _gunShotSound = GetComponent<AudioSource>();
     }
+    
+    // Helper function to check if we need to reload
+    public bool ShouldReload()
+    {
+        return ammoCount == 0 && magCount > 0;
+    }
+    
+    // Helper function to aid with reloading ammo
+    public void RefillAmmo()
+    {
+        ammoCount = mageSize;
+        magCount--;
+    }
 
+    // Use the displacement equation to get the current position of our simulated bullet
     Vector3 GetPosition(Bullet bullet)
     {
         Vector3 gravity = Vector3.down * bulletDrop;
@@ -85,7 +98,6 @@ public class RaycastWeapon : MonoBehaviour
         bullet.time = 0.0f;
         bullet.tracer = Instantiate(bulletTrail, position, Quaternion.identity);
         bullet.tracer.AddPosition(position);
-        bullet.bounce = maxBounces;
         return bullet;
     }
 
@@ -160,21 +172,27 @@ public class RaycastWeapon : MonoBehaviour
         _ray.direction = direction;
         if (Physics.Raycast(_ray, out _hitInfo, distance))
         {
-            hitEffect.transform.position = _hitInfo.point;
-            hitEffect.transform.forward = _hitInfo.normal;
-            hitEffect.Emit(1);
+            // If the player shoots something with a rigid body, play the blood effect.
+            if (_hitInfo.rigidbody)
+            {
+                hitEffect[0].transform.position = _hitInfo.point;
+                hitEffect[0].transform.forward = _hitInfo.normal;
+                hitEffect[0].Emit(1);
+
+            }
+            else
+            // Play the stone hit effect
+            {
+                hitEffect[1].transform.position = _hitInfo.point;
+                hitEffect[1].transform.forward = _hitInfo.normal;
+                hitEffect[1].Emit(1);
+            }
+
 
             bullet.time = maxLifetime;
             end = _hitInfo.point;
 
-            if (bullet.bounce > 0)
-            {
-                bullet.time = 0;
-                bullet.initialPosition = _hitInfo.point;
-                bullet.initialVelocity = Vector3.Reflect(bullet.initialVelocity, _hitInfo.normal);
-                bullet.bounce--;
-            }
-
+            // Add force to the rigid body that our bullet hit
             var rb2d = _hitInfo.collider.GetComponent<Rigidbody>();
             if (rb2d)
             {
@@ -215,4 +233,5 @@ public class RaycastWeapon : MonoBehaviour
     {
         isFiring = false;
     }
+    
 }

@@ -107,6 +107,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleSpawn"",
+                    ""type"": ""Button"",
+                    ""id"": ""1d2ec5a4-0aec-40e6-aee4-4a97c7303c5c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -278,7 +287,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""29e5786e-6cb3-48ff-921f-2fbdb6190926"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""path"": ""<Gamepad>/dpad/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -300,7 +309,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0e9cf93f-8f08-46c8-b36f-4f847a0f4fb2"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/dpad/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -322,7 +331,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""cbfe5432-d693-4ba4-a6c3-e2fe06936c7d"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -338,6 +347,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""KBM"",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""152b32ea-60b0-43fb-b3ab-0e87069b9149"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5df307bc-9c2e-4d62-8b55-78f59bd43d40"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleSpawn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -385,6 +416,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Controls_SecondaryWeapon = m_Controls.FindAction("SecondaryWeapon", throwIfNotFound: true);
         m_Controls_Reload = m_Controls.FindAction("Reload", throwIfNotFound: true);
         m_Controls_Interact = m_Controls.FindAction("Interact", throwIfNotFound: true);
+        m_Controls_ToggleSpawn = m_Controls.FindAction("ToggleSpawn", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -453,6 +485,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Controls_SecondaryWeapon;
     private readonly InputAction m_Controls_Reload;
     private readonly InputAction m_Controls_Interact;
+    private readonly InputAction m_Controls_ToggleSpawn;
     public struct ControlsActions
     {
         private @PlayerControls m_Wrapper;
@@ -466,6 +499,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @SecondaryWeapon => m_Wrapper.m_Controls_SecondaryWeapon;
         public InputAction @Reload => m_Wrapper.m_Controls_Reload;
         public InputAction @Interact => m_Wrapper.m_Controls_Interact;
+        public InputAction @ToggleSpawn => m_Wrapper.m_Controls_ToggleSpawn;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -502,6 +536,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnInteract;
+                @ToggleSpawn.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnToggleSpawn;
+                @ToggleSpawn.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnToggleSpawn;
+                @ToggleSpawn.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnToggleSpawn;
             }
             m_Wrapper.m_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -533,6 +570,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @ToggleSpawn.started += instance.OnToggleSpawn;
+                @ToggleSpawn.performed += instance.OnToggleSpawn;
+                @ToggleSpawn.canceled += instance.OnToggleSpawn;
             }
         }
     }
@@ -566,5 +606,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnSecondaryWeapon(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnToggleSpawn(InputAction.CallbackContext context);
     }
 }

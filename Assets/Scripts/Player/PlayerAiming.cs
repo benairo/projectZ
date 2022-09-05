@@ -40,16 +40,17 @@ public class PlayerAiming : MonoBehaviour
         _animator = GetComponent<Animator>();
         _activeWeapon = GetComponent<ActiveWeapon>();
     }
-
+    
     public void AimingPerformed(InputAction.CallbackContext context)
     {
         _isAiming = context.performed;
         _animator.SetBool(_isAimingParam, _isAiming);
 
         var weapon = _activeWeapon.GetActiveWeapon();
+        // Reduce recoil when aiming 
         if (weapon)
         {
-            weapon.recoil.recoilModifier = _isAiming ? 0.35f : 1.0f;
+            weapon.recoil.recoilModifier = _isAiming ? 0.4f : 1.0f;
         }
     }
     void FixedUpdate()

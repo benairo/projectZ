@@ -16,4 +16,6 @@ public class ZombieAgentConfig : ScriptableObject
     public float attackTimer;
 
     public float damageAmount;
+
+    public float growlTimer;
 }

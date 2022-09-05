@@ -20,17 +20,20 @@ public class ZombieAttackState : ZombieState
     
     public void Update(ZombieAgent agent)
     {
-        _timer = _timer - Time.deltaTime;
+        _timer -= Time.deltaTime;
         float distance = Vector3.Distance(agent.playerTransform.position, agent.navMeshAgent.transform.position);
         
         if (_timer <= 0.0f)
         {
+            // Make sure the zombie rotates towards the player when attacking
             Vector3 direction = (agent.playerTransform.position - agent.navMeshAgent.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
             agent.navMeshAgent.transform.rotation = Quaternion.Slerp(agent.navMeshAgent.transform.rotation,
                 lookRotation, Time.deltaTime * 2.0f);
+            // Check to see if the zombie is currently performing an attack animation
             if (!agent.animator.GetCurrentAnimatorStateInfo(0).IsName("Zombie Attack"))
             {
+                // Change the state to chase if the player moves out of the attack radius
                 if (distance > 2.0f)
                 {
                     agent.stateMachine.ChangeState(ZombieStateID.ChasePlayer);

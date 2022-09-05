@@ -31,7 +31,6 @@ public class ActiveWeapon : MonoBehaviour
     
     private bool _isHolstered = false;
     
-    // Start is called before the first frame update
     void Start()
     {
         RaycastWeapon existingWeapon = GetComponentInChildren<RaycastWeapon>();
@@ -40,7 +39,6 @@ public class ActiveWeapon : MonoBehaviour
             Equip(existingWeapon);
         }
     }
-
     public RaycastWeapon GetActiveWeapon()
     {
         return GetWeapon(_activeWeaponIndex);
@@ -57,7 +55,7 @@ public class ActiveWeapon : MonoBehaviour
 
     public void GetHolsterInput(InputAction.CallbackContext context)
     {
-        ToggleActiveWeapon();
+        ChangeActiveWeapon();
     }
 
     public void GetPrimaryWeaponInput(InputAction.CallbackContext context)
@@ -69,7 +67,6 @@ public class ActiveWeapon : MonoBehaviour
         SetActiveWeapon(WeaponSlot.Secondary);
     }
 
-    // Update is called once per frame
     void Update()
     {
         var weapon = GetWeapon(_activeWeaponIndex);
@@ -81,12 +78,14 @@ public class ActiveWeapon : MonoBehaviour
 
     public void Equip(RaycastWeapon newWeapon)
     {
+        // Check if a weapon currently exists in the designated weapon slot
         int weaponSlotIndex = (int)newWeapon.WeaponSlot;
         var weapon = GetWeapon(weaponSlotIndex);
         if (weapon)
         {
             Destroy(weapon.gameObject);
         }
+        // Assign properties to the newly equipped weapon
         weapon = newWeapon;
         weapon.raycastDestination = crosshairTarget;
         weapon.recoil.playerAiming = playerAiming;
@@ -97,10 +96,10 @@ public class ActiveWeapon : MonoBehaviour
         
         SetActiveWeapon(newWeapon.WeaponSlot);
         
-        ammoWidget.Refresh(weapon.ammoCount);
+        ammoWidget.Refresh(weapon.ammoCount, weapon.magCount);
     }
-
-    void ToggleActiveWeapon()
+    
+    void ChangeActiveWeapon()
     {
         bool isHolstered = rigController.GetBool("holster_weapon");
         if (isHolstered)
@@ -123,10 +122,10 @@ public class ActiveWeapon : MonoBehaviour
             holsterIndex = -1;
         }
         
-        StartCoroutine(SwitchWeapon(holsterIndex, activateIndex));
+        StartCoroutine(ChangeWeapon(holsterIndex, activateIndex));
     }
 
-    IEnumerator SwitchWeapon(int holsterIndex, int activateIndex)
+    IEnumerator ChangeWeapon(int holsterIndex, int activateIndex)
     {
         yield return StartCoroutine(HolsterWeapon(holsterIndex));
         yield return StartCoroutine(ActivateWeapon(activateIndex));
@@ -154,6 +153,7 @@ public class ActiveWeapon : MonoBehaviour
         if (weapon)
         {
             rigController.SetBool("holster_weapon", false);
+            // Play the correct animation for each weapon
             rigController.Play("equip_" + weapon.weaponName);
             do
             {

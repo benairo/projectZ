@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleSpawn",
+                    "type": "Button",
+                    "id": "1d2ec5a4-0aec-40e6-aee4-4a97c7303c5c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -256,7 +265,7 @@
                 {
                     "name": "",
                     "id": "29e5786e-6cb3-48ff-921f-2fbdb6190926",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/dpad/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -278,7 +287,7 @@
                 {
                     "name": "",
                     "id": "0e9cf93f-8f08-46c8-b36f-4f847a0f4fb2",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/dpad/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -300,7 +309,7 @@
                 {
                     "name": "",
                     "id": "cbfe5432-d693-4ba4-a6c3-e2fe06936c7d",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -316,6 +325,28 @@
                     "processors": "",
                     "groups": "KBM",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "152b32ea-60b0-43fb-b3ab-0e87069b9149",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5df307bc-9c2e-4d62-8b55-78f59bd43d40",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleSpawn",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

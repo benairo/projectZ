@@ -10,9 +10,12 @@ public class Barricade : MonoBehaviour
 
     public GameObject barricadePrompt;
 
+    public ZombieSpawner spawner;
+
     private PlayerPoints _playerPoints;
 
     private bool _buttonPressed;
+    
 
     private void Awake()
     {
@@ -41,6 +44,7 @@ public class Barricade : MonoBehaviour
             {
                 _playerPoints.Transaction(pointCost, false);
                 barricadePrompt.gameObject.SetActive(false);
+                // Remove the game object when purchased
                 this.gameObject.SetActive(false);
             }
         }

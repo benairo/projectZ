@@ -15,7 +15,7 @@ public class ZombieAgent : MonoBehaviour
 
     public RagDoll ragDoll;
 
-    public UIHealthBar ui;
+    // public UIHealthBar ui;
     
     public Transform playerTransform;
 
@@ -40,9 +40,7 @@ public class ZombieAgent : MonoBehaviour
     private void Start()
     {
         ragDoll = GetComponent<RagDoll>();
-        ui = GetComponentInChildren<UIHealthBar>();
         navMeshAgent = GetComponent<NavMeshAgent>();
-        
         animator = GetComponent<Animator>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playerHealth = playerTransform.GetComponent<PlayerHealth>();

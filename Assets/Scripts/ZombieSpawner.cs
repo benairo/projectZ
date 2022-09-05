@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
+using Vector3 = UnityEngine.Vector3;
 
 public class ZombieSpawner : MonoBehaviour
 {
@@ -56,12 +59,14 @@ public class ZombieSpawner : MonoBehaviour
 
     private void SpawnZombie()
     {
-        Vector3 spawnPoint = zombieSpawnPoints[Random.Range(0, zombieSpawnPoints.Length)].position;
+        Vector3 spawnPoint;
+        spawnPoint = zombieSpawnPoints[Random.Range(0, zombieSpawnPoints.Length + 1)].position;
         GameObject zombiePrefab = zombiePrefabs[Random.Range(0, zombiePrefabs.Length)];
         Instantiate(zombiePrefab, spawnPoint, Quaternion.identity);
         currentZombieAmount++;
     }
     
+    // Update zombie health and amount on each round
     public void UpdateZombieHealth()
     {
         zombieHealth *= 1.1f;

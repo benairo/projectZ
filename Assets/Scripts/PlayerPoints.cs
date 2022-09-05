@@ -8,17 +8,8 @@ public class PlayerPoints : MonoBehaviour
     public PointCountWidget pointCountWidget;
     
     private int _pointAmount;
-
-    private void Start()
-    {
-        _pointAmount = 0;
-    }
-
-    public int CheckBalance()
-    {
-        return _pointAmount;
-    }
-
+    
+    // Helper function to check if a transaction is possible
     public bool CheckTransaction(int amount)
     {
         if (_pointAmount - amount >= 0)
@@ -28,7 +19,7 @@ public class PlayerPoints : MonoBehaviour
 
         return false;
     }
-
+    
     public void Transaction(int amount, bool addition)
     {
         if (addition)

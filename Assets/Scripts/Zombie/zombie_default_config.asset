@@ -18,3 +18,4 @@ MonoBehaviour:
   maxSightDistance: 5
   attackTimer: 2
   damageAmount: 35
+  growlTimer: -13.632726

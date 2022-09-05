@@ -12,24 +12,34 @@ public class WaveManager : MonoBehaviour
 
     public WaveCountWidget waveCountWidget;
     
-    public int roundCooldown = 10;
+    public int roundCooldown = 5;
+
+    public AudioClip roundSound;
+
+    private AudioSource _audioSource;
     
     private ZombieSpawner _zombieSpawner;
+    
     void Start()
     {
         _zombieSpawner = GetComponentInChildren<ZombieSpawner>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
+        // Skip past wave 0
         if (waveNumber == 0)
         {
             NextWave();
         }
+
+        // Check to see if all of the zombies in the round are killed
         if (zombiesKilled == _zombieSpawner.zombieRoundAmount)
         {
             _zombieSpawner.isSpawning = false;
             NextWave();
+            _audioSource.PlayOneShot(roundSound);
         }
     }
 
@@ -43,6 +53,7 @@ public class WaveManager : MonoBehaviour
 
     }
 
+    // Set isSpawning to true after a certain amount of time
     IEnumerator StartSpawning(int time)
     {
         yield return new WaitForSeconds(time);

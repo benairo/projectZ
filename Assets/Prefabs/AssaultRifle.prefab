@@ -31,7 +31,7 @@ Transform:
   m_Children:
   - {fileID: 2796293059425636802}
   m_Father: {fileID: 4347451729086399995}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &2602557362507450090
 ParticleSystem:
@@ -4844,7 +4844,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4347451729086399995}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &2621171218771372844
 ParticleSystem:
@@ -9455,7 +9455,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4347451729086399995}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4347451729086399992
 GameObject:
@@ -9489,6 +9489,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9105069979206712460}
+  - {fileID: 2672441666984470546}
   - {fileID: 6131830765111309137}
   - {fileID: 2797185153669867434}
   - {fileID: 2796657362531058124}
@@ -9517,17 +9518,20 @@ MonoBehaviour:
   muzzleFlash:
   - {fileID: 2621171218771372844}
   - {fileID: 2602557362507450090}
-  hitEffect: {fileID: 9001530842418105394}
+  hitEffect:
+  - {fileID: 9001530842418105394}
+  - {fileID: 2871953921486219920}
   raycastOrigin: {fileID: 4347451727658412354}
   raycastDestination: {fileID: 0}
   bulletTrail: {fileID: 722532246891214693, guid: f02425e5697074c4298221c1433da8bc,
     type: 3}
   weaponName: rifle
   ammoCount: 30
-  clipSize: 30
+  mageSize: 30
+  magCount: 3
   recoil: {fileID: 0}
   magazine: {fileID: 6130111890391958633}
-  damage: 50
+  damage: 75
   shoot: {fileID: -7421422401676414547, guid: 0b30f8027ce599a4384a0a1b4fae6fd9, type: 3}
 --- !u!114 &-5040971162697371223
 MonoBehaviour:
@@ -9980,7 +9984,7 @@ Transform:
   - {fileID: 6131904918462082827}
   - {fileID: 6127056180567231071}
   m_Father: {fileID: 4347451729086399995}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 27.373001, y: -58.216003, z: 13.765}
 --- !u!33 &6152537594732911513
 MeshFilter:
@@ -14742,3 +14746,84 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!1001 &1515083676739256703
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4347451729086399995}
+    m_Modifications:
+    - target: {fileID: 3463482633483626861, guid: d45df87947bb8b143b775359df4eb91e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463482633483626861, guid: d45df87947bb8b143b775359df4eb91e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.4471672
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463482633483626861, guid: d45df87947bb8b143b775359df4eb91e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.7500001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463482633483626861, guid: d45df87947bb8b143b775359df4eb91e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.982603
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463482633483626861, guid: d45df87947bb8b143b775359df4eb91e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463482633483626861, guid: d45df87947bb8b143b775359df4eb91e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463482633483626861, guid: d45df87947bb8b143b775359df4eb91e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463482633483626861, guid: d45df87947bb8b143b775359df4eb91e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463482633483626861, guid: d45df87947bb8b143b775359df4eb91e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463482633483626861, guid: d45df87947bb8b143b775359df4eb91e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463482633483626861, guid: d45df87947bb8b143b775359df4eb91e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3466663352640827245, guid: d45df87947bb8b143b775359df4eb91e,
+        type: 3}
+      propertyPath: m_Name
+      value: StoneHitEffect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d45df87947bb8b143b775359df4eb91e, type: 3}
+--- !u!4 &2672441666984470546 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3463482633483626861, guid: d45df87947bb8b143b775359df4eb91e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1515083676739256703}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2871953921486219920 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3665246697328520175, guid: d45df87947bb8b143b775359df4eb91e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1515083676739256703}
+  m_PrefabAsset: {fileID: 0}

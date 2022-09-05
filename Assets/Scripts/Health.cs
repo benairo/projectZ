@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +8,11 @@ public class Health : MonoBehaviour
     public float maxHealth;
     [HideInInspector]
     public float currentHealth;
-    
-// Start is called before the first frame update
+
+    private float _regenTimer;
+
+    private bool _damaged;
+
     void Start()
     { 
         currentHealth = maxHealth;
@@ -23,9 +27,31 @@ public class Health : MonoBehaviour
         OnStart();
     }
 
+    private void Update()
+    {
+        if (_damaged)
+        {
+            _regenTimer += Time.deltaTime;
+            if (_regenTimer >= 10.0f)
+            {
+                RegenHealth();
+                _damaged = false;
+            }
+        }
+        
+    }
+
+    void RegenHealth()
+    {
+        currentHealth = maxHealth;
+        OnRegen();
+    }
+
     public void TakeDamage(float amount, Vector3 direction)
     {
         currentHealth -= amount;
+        _damaged = true;
+        _regenTimer = 0.0f;
         OnDamage(direction);
         if (currentHealth <= 0.0f)
         {
@@ -44,6 +70,11 @@ public class Health : MonoBehaviour
     }
 
     protected virtual void OnStart()
+    {
+        
+    }
+
+    protected virtual void OnRegen()
     {
         
     }

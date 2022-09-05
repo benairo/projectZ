@@ -26,6 +26,7 @@ public class ReloadWeapon : MonoBehaviour
 
     private GameObject _magazineHand;
 
+    // Capture player input
     public void GetReloadAction(InputAction.CallbackContext context)
     {
         _reloadAction = context.performed;
@@ -42,19 +43,18 @@ public class ReloadWeapon : MonoBehaviour
         RaycastWeapon weapon = activeWeapon.GetActiveWeapon();
         if (weapon)
         {
-            if (_reloadAction || weapon.ammoCount <= 0)
+            if (_reloadAction || weapon.ShouldReload())
             {
                 rigController.SetTrigger("reload_weapon");
             }
 
             if (weapon.isFiring)
             {
-                ammoWidget.Refresh(weapon.ammoCount);
+                ammoWidget.Refresh(weapon.ammoCount, weapon.magCount);
             }
         }
-        
     }
-
+    // Called by animation events inside of the animations
     void OnAnimationEvent(string eventName)
     {
         switch (eventName)
@@ -103,8 +103,8 @@ public class ReloadWeapon : MonoBehaviour
         _audioSource.PlayOneShot(attachSound);
         weapon.magazine.SetActive(true);
         Destroy(_magazineHand);
-        weapon.ammoCount = weapon.clipSize;
+        weapon.RefillAmmo();
         rigController.ResetTrigger("reload_weapon");
-        ammoWidget.Refresh(weapon.ammoCount);
+        ammoWidget.Refresh(weapon.ammoCount, weapon.ammoCount);
     }
 }

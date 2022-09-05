@@ -17,6 +17,7 @@ public class ZombieDeathState : ZombieState
         
         agent.ragDoll.ActivateRagDoll();
         direction.y = 1;
+        // Prevent points being given multiple times per death
         if (!_pointsGiven)
         {
             agent.waveManager.zombiesKilled++;
@@ -26,7 +27,6 @@ public class ZombieDeathState : ZombieState
         }
         agent.ragDoll.ApplyForce(direction * agent.config.dieForce);
         agent.navMeshAgent.ResetPath();
-        agent.ui.gameObject.SetActive(false);
     }
 
     public void Update(ZombieAgent agent)
